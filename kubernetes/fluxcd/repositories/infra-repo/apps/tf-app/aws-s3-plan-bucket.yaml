@@ -1,0 +1,62 @@
+#---
+#apiVersion: infra.contrib.fluxcd.io/v1alpha2
+#kind: Terraform
+#metadata:
+#  name: aws-s3-bucket
+#  namespace: flux-system
+#  labels:
+#    tf.weave.works/composite: s3-bucket
+#spec:
+#  path: aws_s3_bucket
+#  values:
+#    bucket: webserver-tf-controller-test-bucket
+#    tags:
+#      Environment: Dev
+#      Name: My bucket
+#  sourceRef:
+#    kind: OCIRepository
+#    name: aws-package
+#  approvePlan: auto
+#  retryInterval: 10s
+#  interval: 2m
+#  destroyResourcesOnDeletion: true
+#  writeOutputsToSecret:
+#    name: aws-s3-bucket-outputs
+#    outputs:
+#    - arn
+#    - bucket
+#  runnerPodTemplate:
+#    spec:
+#      envFrom:
+#      - secretRef:
+#          name: aws-credentials
+#---
+#apiVersion: infra.contrib.fluxcd.io/v1alpha2
+#kind: Terraform
+#metadata:
+#  name: webserver-bucket-acl
+#  namespace: flux-system
+#  labels:
+#    tf.weave.works/composite: s3-bucket
+#spec:
+#  path: aws_s3_bucket_acl
+#  values:
+#    acl: private
+#    bucket: ${{ .aws_s3_bucket.bucket }}
+#  sourceRef:
+#    kind: OCIRepository
+#    name: aws-package
+#  approvePlan: auto
+#  retryInterval: 10s
+#  interval: 3m
+#  dependsOn:
+#  - name: aws-s3-bucket
+#  readInputsFromSecrets:
+#  - name: aws-s3-bucket-outputs
+#    as: aws_s3_bucket
+#  destroyResourcesOnDeletion: true
+#  runnerPodTemplate:
+#    spec:
+#      envFrom:
+#      - secretRef:
+#          name: aws-credentials
