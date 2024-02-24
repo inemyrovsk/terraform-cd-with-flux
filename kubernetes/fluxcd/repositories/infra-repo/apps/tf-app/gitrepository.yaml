@@ -7,4 +7,4 @@ spec:
   interval: 1m0s
   ref:
     branch: main 
-  url: https://github.com/inemyrovsk/webserver-ec2-module-terraform
+  url: https://github.com/inemyrovsk/terraform-cd-with-flux
