@@ -5,6 +5,6 @@ metadata:
   namespace: flux-system
 type: Opaque
 stringData:
-  AWS_ACCESS_KEY_ID: AKIA2UC3BX55YAFEUY6U
-  AWS_SECRET_ACCESS_KEY: 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
+  AWS_ACCESS_KEY_ID: ***
+  AWS_SECRET_ACCESS_KEY: ***
   AWS_REGION: eu-north-1
